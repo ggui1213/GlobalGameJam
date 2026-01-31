@@ -58,7 +58,6 @@ namespace Script
                         colorCache.a = obstacleVisibleOpacity;
                         obstacle.SpriteRenderer.color = colorCache;
                         
-                        obstacle.SpriteRenderer.enabled = true;
                         obstacle.Collider.enabled = true;
                     }
                     foreach (var trap in _traps)
@@ -67,7 +66,6 @@ namespace Script
                         colorCache.a = trapHidedOpacity;
                         trap.SpriteRenderer.color = colorCache;
                         
-                        trap.SpriteRenderer.enabled = false;
                         trap.Collider.enabled = false;
                     }
                     break;
@@ -78,7 +76,6 @@ namespace Script
                         colorCache.a = obstacleHidedOpacity;
                         obstacle.SpriteRenderer.color = colorCache;
                         
-                        obstacle.SpriteRenderer.enabled = false;
                         obstacle.Collider.enabled = false;
                     }
                     foreach (var trap in _traps)
@@ -87,7 +84,6 @@ namespace Script
                         colorCache.a = trapVisibleOpacity;
                         trap.SpriteRenderer.color = colorCache;
                         
-                        trap.SpriteRenderer.enabled = true;
                         trap.Collider.enabled = true;
                     }
                     break;
