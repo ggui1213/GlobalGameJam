@@ -190,6 +190,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleGravity"",
+                    ""type"": ""Button"",
+                    ""id"": ""3856fdce-585b-4dd9-b088-5f8d6b1a1c01"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -597,6 +606,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""ToggleObstacle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""049b7697-4538-41c7-b4e0-7d5f911d3422"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleGravity"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1195,6 +1215,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_MouseLeftClick = m_Player.FindAction("MouseLeftClick", throwIfNotFound: true);
         m_Player_ToggleObstacle = m_Player.FindAction("ToggleObstacle", throwIfNotFound: true);
+        m_Player_ToggleGravity = m_Player.FindAction("ToggleGravity", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1299,6 +1320,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_MouseLeftClick;
     private readonly InputAction m_Player_ToggleObstacle;
+    private readonly InputAction m_Player_ToggleGravity;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1354,6 +1376,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/ToggleObstacle".
         /// </summary>
         public InputAction @ToggleObstacle => m_Wrapper.m_Player_ToggleObstacle;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ToggleGravity".
+        /// </summary>
+        public InputAction @ToggleGravity => m_Wrapper.m_Player_ToggleGravity;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1413,6 +1439,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @ToggleObstacle.started += instance.OnToggleObstacle;
             @ToggleObstacle.performed += instance.OnToggleObstacle;
             @ToggleObstacle.canceled += instance.OnToggleObstacle;
+            @ToggleGravity.started += instance.OnToggleGravity;
+            @ToggleGravity.performed += instance.OnToggleGravity;
+            @ToggleGravity.canceled += instance.OnToggleGravity;
         }
 
         /// <summary>
@@ -1457,6 +1486,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @ToggleObstacle.started -= instance.OnToggleObstacle;
             @ToggleObstacle.performed -= instance.OnToggleObstacle;
             @ToggleObstacle.canceled -= instance.OnToggleObstacle;
+            @ToggleGravity.started -= instance.OnToggleGravity;
+            @ToggleGravity.performed -= instance.OnToggleGravity;
+            @ToggleGravity.canceled -= instance.OnToggleGravity;
         }
 
         /// <summary>
@@ -1834,6 +1866,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnToggleObstacle(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleGravity" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleGravity(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
