@@ -18,6 +18,7 @@ namespace Script
         public void StartTrailing()
         {
             IsTrailing = true;
+            MovementTrialManager.Instance.InitiateNewTrial();
         }
         
         public void StopTrailing()

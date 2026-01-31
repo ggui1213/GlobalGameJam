@@ -9,7 +9,7 @@ namespace Script
         private Rigidbody2D _rigidbody2D;
         [SerializeField] private float gravityScale = 1;
         [SerializeField] private PlayerGravityState initialGravityState = PlayerGravityState.GravityOn;
-        [SerializeField] private bool handlingGravityToggleOnStart = false;
+        [SerializeField] private bool handlingGravityOnStart = false;
         [SerializeField] private bool allowToggleGravityOnStart = true;
         private PlayerGravityState _currentGravityState;
         
@@ -27,7 +27,7 @@ namespace Script
             
             _allowToggleGravity = allowToggleGravityOnStart;
             
-            _isHandlingGravityToggle = handlingGravityToggleOnStart;
+            _isHandlingGravityToggle = handlingGravityOnStart;
             if (_isHandlingGravityToggle)
                 BeginHandlingGravity();
         }
