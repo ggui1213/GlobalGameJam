@@ -7,7 +7,7 @@ namespace Script
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag == "Trap")
+            if (other.tag == "Trap" || other.tag == "Wall")
             {
                 PlayerSpawnManager.Instance.RespawnPlayer();
             }
