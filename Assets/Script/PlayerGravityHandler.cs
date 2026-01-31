@@ -10,8 +10,10 @@ namespace Script
         [SerializeField] private float gravityScale = 1;
         [SerializeField] private PlayerGravityState initialGravityState = PlayerGravityState.GravityOn;
         [SerializeField] private bool handlingGravityToggleOnStart = false;
+        [SerializeField] private bool allowToggleGravityOnStart = true;
         private PlayerGravityState _currentGravityState;
         
+        private bool _allowToggleGravity;
         private bool _isHandlingGravityToggle;
 
 
@@ -21,13 +23,28 @@ namespace Script
             _rigidbody2D = GetComponent<Rigidbody2D>();
             
             _currentGravityState = initialGravityState;
+            
+            
+            _allowToggleGravity = allowToggleGravityOnStart;
+            
             _isHandlingGravityToggle = handlingGravityToggleOnStart;
             if (_isHandlingGravityToggle)
-                BeginHandlingGravityToggle();
+                BeginHandlingGravity();
         }
+
+        private void Update()
+        {
+                
+            if (_inputSystemActions.Player.ToggleGravity.triggered)
+                TryToggleGravity();
+        }
+
         
-        public void BeginHandlingGravityToggle() => BeginHandlingGravityToggle(initialGravityState);
-        public void BeginHandlingGravityToggle(PlayerGravityState startingGravityStateOverride)
+        public void EnableToggleGravity() => _allowToggleGravity = true;
+        public void DisableToggleGravity() => _allowToggleGravity = false;
+        
+        public void BeginHandlingGravity() => BeginHandlingGravity(_currentGravityState);
+        public void BeginHandlingGravity(PlayerGravityState startingGravityStateOverride)
         {
             _isHandlingGravityToggle = true;
             _currentGravityState = startingGravityStateOverride;
@@ -44,21 +61,16 @@ namespace Script
             _rigidbody2D.gravityScale = _currentGravityState == PlayerGravityState.GravityOn ? gravityScale : 0;
         }
 
-        private void Update()
+        public bool TryToggleGravity()
         {
-            if (!_isHandlingGravityToggle)
-                return;
-                
-            if (_inputSystemActions.Player.ToggleGravity.triggered)
-            {
-                _currentGravityState = _currentGravityState == PlayerGravityState.GravityOn
-                    ? PlayerGravityState.GravityOff
-                    : PlayerGravityState.GravityOn;
-                
+            if (!_allowToggleGravity)
+                return false;
+            _currentGravityState = _currentGravityState == PlayerGravityState.GravityOn? PlayerGravityState.GravityOff : PlayerGravityState.GravityOn;
+            
+            if (_isHandlingGravityToggle)
                 _rigidbody2D.gravityScale = _currentGravityState == PlayerGravityState.GravityOn ? gravityScale : 0;
-            }
+            return true;
         }
-        
         public enum PlayerGravityState
         {
             GravityOn,
