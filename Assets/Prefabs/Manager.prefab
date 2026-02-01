@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8975525034048094806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2558808853110347732}
+  - component: {fileID: 5084523649722114919}
+  - component: {fileID: 4597664154354427370}
+  - component: {fileID: 7258307716600905410}
+  - component: {fileID: 3494839021397942941}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2558808853110347732
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8975525034048094806}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5084523649722114919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8975525034048094806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b7fbbea8391491fbd304f7d607042b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Script.GameManager
+--- !u!114 &4597664154354427370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8975525034048094806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d95b4159c65b848a3fcc063642af33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Script.MovementTrialManager
+  maxTrialCount: 4
+  trailMaxOpacity: 0.5
+  trailMinOpacity: 0.1
+  fadeMode: 0
+--- !u!114 &7258307716600905410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8975525034048094806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d865c2b56615674487286ba4caa50fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Script.ObstacleAndTrapManager
+  initialState: 1
+  handleMode: 0
+  stateOnPress: 1
+  obstacleVisibleOpacity: 1
+  obstacleHidedOpacity: 0.25
+  trapVisibleOpacity: 1
+  trapHidedOpacity: 0.25
+--- !u!114 &3494839021397942941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8975525034048094806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc06a64d8d6349d6a19c5adcc7dbe049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Script.PlayerSpawnManager
+  playerPrefab: {fileID: 8406136175486059474, guid: 4ab974ec2e2f20d45b3b0e41fea86de3, type: 3}
+  spawnPoint: {fileID: 0}
