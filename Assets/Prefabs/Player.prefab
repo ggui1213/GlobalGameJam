@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 8071577903578220951}
   - component: {fileID: 2052467156492573015}
   - component: {fileID: 5745437867319803293}
+  - component: {fileID: 7437312897368444265}
   - component: {fileID: 8842164025332559029}
   - component: {fileID: 5643792682173513610}
   - component: {fileID: -3779500482173534811}
@@ -451,6 +452,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &7437312897368444265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406136175486059474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 617d22aa953848945ad41f1f72f2f683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Script.PlayerSpriteManager
+  defualtSprite: {fileID: 2358217137719092650, guid: dbe1ad7cd94f4a04fb57b5406095a202, type: 3}
+  leftPressedSprite: {fileID: -3480642058058728229, guid: 717b7858835da2f459168dfc9f8fc077, type: 3}
+  rightPressedSprite: {fileID: -2326465548647411387, guid: a7f2fd7edf9407549bf5e61839e9eb38, type: 3}
+  bothPressedSprite: {fileID: -3480642058058728229, guid: 717b7858835da2f459168dfc9f8fc077, type: 3}
 --- !u!114 &8842164025332559029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,6 +487,7 @@ MonoBehaviour:
   enableGravityHandleOnStart: 0
   enableGravityHandleInputOnStart: 1
   debugInputLogs: 0
+  playerSpriteManager: {fileID: 0}
 --- !u!114 &5643792682173513610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,6 +501,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.Player
   collisionEffectPrefab: {fileID: 8187929423262167487, guid: 24f9c6823b5108f4790a93d2b2a8a2d7, type: 3}
+  minimumCollisionEffectScale: 0.25
+  maximumCollisionRelativeSpeedForMaxScale: 10
   playerCamera: {fileID: 5569746561180413502}
 --- !u!114 &-3779500482173534811
 MonoBehaviour:

@@ -17,6 +17,8 @@ namespace Script
         [SerializeField] private float trapVisibleOpacity = 1f;
         [SerializeField] private float trapHidedOpacity = 0.25f;
         
+        [SerializeField] private PlayerSpriteManager playerSpriteManager;
+        
         private VisibilityState _currentState;
         private bool _wasPressedLastFrame;
         
@@ -51,6 +53,11 @@ namespace Script
             if (action == null) return;
 
             bool pressed = action.ReadValue<float>() > 0.5f;
+
+            if (pressed != _wasPressedLastFrame)
+            {
+                playerSpriteManager.LeftMouseButtonDown = pressed;
+            }
 
             if (handleMode == ObstacleHandleMode.Toggle)
             {

@@ -14,6 +14,7 @@ namespace Script
         [SerializeField] private bool enableGravityHandleOnStart;
         [SerializeField] private bool enableGravityHandleInputOnStart;
         [SerializeField] private bool debugInputLogs;
+        [SerializeField] private PlayerSpriteManager playerSpriteManager;
         private bool _acceptInput;
         private bool _gravityHandleEnabled;
         private bool _wasPressedLastFrame;
@@ -54,6 +55,20 @@ namespace Script
                 {
                     // ignore if action not available yet
                 }
+            }
+
+            // Initialize the player sprite manager's right-button state to match
+            // the current input state so we don't show an incorrect sprite on start.
+            if (playerSpriteManager != null)
+            {
+                playerSpriteManager.RightMouseButtonDown = _wasPressedLastFrame;
+            }
+            else
+            {
+                // Try to auto-find the PlayerSpriteManager on the same GameObject or its children
+                playerSpriteManager = GetComponent<PlayerSpriteManager>() ?? GetComponentInChildren<PlayerSpriteManager>();
+                if (playerSpriteManager != null)
+                    playerSpriteManager.RightMouseButtonDown = _wasPressedLastFrame;
             }
         }
 
@@ -115,6 +130,23 @@ namespace Script
 
             // Read pressed state once and use it for both Toggle and PressRelease modes.
             var pressed = action.ReadValue<float>() > 0.5f;
+
+            // Ensure we have a reference to playerSpriteManager; try to auto-find if missing
+            if (playerSpriteManager == null)
+            {
+                playerSpriteManager = GetComponent<PlayerSpriteManager>() ?? GetComponentInChildren<PlayerSpriteManager>();
+            }
+
+            // Always update player sprite manager to reflect current pressed state (keeps UI consistent)
+            if (playerSpriteManager != null)
+            {
+                // Only set and optionally log; setting every frame is cheap and keeps sprite consistent
+                playerSpriteManager.RightMouseButtonDown = pressed;
+                if (debugInputLogs) Debug.Log($"PlayerGravityHandler: RightMouseButtonDown set to {pressed} (GameObject={gameObject.name})");
+            }
+
+            // Update player sprite manager when the pressed state changes (press or release)
+            // (edge-detection preserved for other logic; sprite already updated above)
 
             // Handle Toggle mode: flip state on press edge
             if (playerGravityHandleMode == PlayerGravityHandleMode.Toggle)
