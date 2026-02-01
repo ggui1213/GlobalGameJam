@@ -82,6 +82,7 @@ MonoBehaviour:
   obstacleHidedOpacity: 0.25
   trapVisibleOpacity: 1
   trapHidedOpacity: 0.25
+  playerSpriteManager: {fileID: 7437312897368444265, guid: 4ab974ec2e2f20d45b3b0e41fea86de3, type: 3}
 --- !u!114 &3494839021397942941
 MonoBehaviour:
   m_ObjectHideFlags: 0
