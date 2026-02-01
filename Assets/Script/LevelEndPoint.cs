@@ -197,6 +197,10 @@ namespace Script
         {
             if (other.CompareTag("Player"))
             {
+                // FMOD: 播放胜利音效
+                if (FMODAudioManager.Instance != null)
+                    FMODAudioManager.Instance.PlayVictory();
+                    
                 // Load the next level
                 UnityEngine.SceneManagement.SceneManager.LoadScene(nextLevelName);
             }

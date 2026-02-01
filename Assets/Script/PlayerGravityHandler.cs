@@ -175,7 +175,9 @@ namespace Script
         
         private void SetCurrentGravityState(PlayerGravityHandlingState newHandlingState)
         {
+            var previousState = _currentGravityHandlingState;
             _currentGravityHandlingState = newHandlingState;
+            
             switch (newHandlingState)
             {
                 case PlayerGravityHandlingState.GravityOn:
@@ -186,6 +188,12 @@ namespace Script
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(newHandlingState), newHandlingState, null);
+            }
+            
+            // FMOD: 播放重力切换音效（仅当状态实际发生变化时）
+            if (previousState != newHandlingState && FMODAudioManager.Instance != null)
+            {
+                FMODAudioManager.Instance.PlayGravityToggle();
             }
         }
 

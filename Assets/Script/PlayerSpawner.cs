@@ -74,6 +74,10 @@ namespace Script
                 trailer.StopTrailing();
             }
             
+            // FMOD: 玩家重生，BGM 切换回准备状态（高切效果）
+            if (FMODAudioManager.Instance != null)
+                FMODAudioManager.Instance.OnPlayerRespawn();
+            
             return _player;
         }
     }

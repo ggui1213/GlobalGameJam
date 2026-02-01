@@ -649,6 +649,13 @@ Assets/Plugins/FMOD/**/Info.plist text eol=lf";
                             var listener = unityListeners[i];
                             if (listener)
                             {
+                                // Skip if this is an asset (prefab) rather than a scene object
+                                if (!listener.gameObject.scene.IsValid())
+                                {
+                                    RuntimeUtils.DebugLog("[FMOD Assistant] Skipping prefab asset: " + listener.gameObject.name);
+                                    continue;
+                                }
+                                
                                 RuntimeUtils.DebugLog("[FMOD Assistant] Replacing Unity Listener with FMOD Listener on " + listener.gameObject.name);
                                 if (listener.GetComponent<StudioListener>() == null)
                                 {

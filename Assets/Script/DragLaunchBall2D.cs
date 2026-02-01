@@ -44,6 +44,10 @@ namespace Script
                     isDragging = true;
                     dragStartWorld = rb.position;
                     if (line != null) line.enabled = true;
+                    
+                    // FMOD: 播放蓄力音效
+                    if (FMODAudioManager.Instance != null)
+                        FMODAudioManager.Instance.PlayEjectionCharging();
                 }
             }
 
@@ -83,6 +87,10 @@ namespace Script
                 // Invoke onLaunch first so external listeners (like GravityHandler) can prepare
                 // e.g. turning gravity back on (Dynamic body) so AddForce works.
                 onLaunch.Invoke();
+
+                // FMOD: 播放发射音效（同时 BGM 切换到全频段）
+                if (FMODAudioManager.Instance != null)
+                    FMODAudioManager.Instance.PlayEjectionReleased();
 
                 rb.AddForce(currentForce, ForceMode2D.Impulse);
                 line.enabled = false;
