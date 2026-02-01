@@ -652,7 +652,7 @@ PrefabInstance:
       objectReference: {fileID: 1484618925}
     - target: {fileID: 7258307716600905410, guid: a1deb8e3716fe5b4ea23d5af99f8c220, type: 3}
       propertyPath: initialState
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7258307716600905410, guid: a1deb8e3716fe5b4ea23d5af99f8c220, type: 3}
       propertyPath: playerSpriteManager
