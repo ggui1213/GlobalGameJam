@@ -431,32 +431,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DragLaunchBall2D
   forceMultiplier: 10
+  maxDragDistance: 3
   onLaunch:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8842164025332559029}
         m_TargetAssemblyTypeName: Script.PlayerGravityHandler, Assembly-CSharp
-        m_MethodName: BeginHandlingGravity
-        m_Mode: 1
+        m_MethodName: SetGravityHandleEnable
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8842164025332559029}
-        m_TargetAssemblyTypeName: Script.PlayerGravityHandler, Assembly-CSharp
-        m_MethodName: BeginHandlingGravity
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &8842164025332559029
 MonoBehaviour:
@@ -470,10 +459,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b20dcc1dfa45d2a77dd84c19f92681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.Player
-  gravityScale: 1
-  initialGravityState: 0
-  handlingGravityOnStart: 0
-  allowToggleGravityOnStart: 1
+  playerGravityHandleMode: 1
+  gravityScaleWhenOn: 1
+  startWithGravityOn: 0
+  pressToTurnGravityOn: 1
+  enableGravityHandleOnStart: 0
+  enableGravityHandleInputOnStart: 1
+  debugInputLogs: 0
 --- !u!114 &5643792682173513610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,6 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb174c60936b4462b5313f8ce4d81267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.Player
+  playerCamera: {fileID: 5569746561180413502}
 --- !u!114 &-3779500482173534811
 MonoBehaviour:
   m_ObjectHideFlags: 0

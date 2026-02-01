@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Script
 {
@@ -20,6 +19,10 @@ namespace Script
         private bool _wasPressedLastFrame;
         private PlayerGravityHandlingState _currentGravityHandlingState;
 
+        private RigidbodyType2D _prevBodyType2D;
+        private float _prevGravityScale2D;
+        private bool _hasStoredPrev2D;
+
         private void Start()
         {
             _inputSystemActions = GameManager.Instance.InputActions;
@@ -35,6 +38,14 @@ namespace Script
                 SetCurrentGravityState(PlayerGravityHandlingState.GravityOn);
             else
                 SetCurrentGravityState(PlayerGravityHandlingState.GravityOff);
+
+            // store initial 2D gravity/body settings if available
+            if (_rigidbody2D != null)
+            {
+                _prevBodyType2D = _rigidbody2D.bodyType;
+                _prevGravityScale2D = _rigidbody2D.gravityScale;
+                _hasStoredPrev2D = true;
+            }
 
             if (enableGravityHandleInputOnStart)
                 SetAcceptInputEnable(true);
@@ -160,6 +171,50 @@ namespace Script
         public void SetGravityHandleEnable(bool enable)
         {
             _gravityHandleEnabled = enable;
+            // If disabling gravity handling, explicitly turn gravity off so the object stops falling.
+            if (!enable)
+            {
+                // Ensure we have references
+                if (_rigidbody2D == null) _rigidbody2D = GetComponent<Rigidbody2D>();
+
+                // store previous values if not already
+                if (_rigidbody2D != null && !_hasStoredPrev2D)
+                {
+                    _prevBodyType2D = _rigidbody2D.bodyType;
+                    _prevGravityScale2D = _rigidbody2D.gravityScale;
+                    _hasStoredPrev2D = true;
+                }
+
+                // Turn off gravity effect
+                SetCurrentGravityState(PlayerGravityHandlingState.GravityOff);
+
+                // Zero vertical velocity so the object doesn't continue falling due to momentum
+                if (_rigidbody2D != null)
+                {
+                    var v = _rigidbody2D.linearVelocity;
+                    _rigidbody2D.linearVelocity = new Vector2(v.x, 0f);
+                    // switch to kinematic so physics won't apply gravity/forces
+                    _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+                    _rigidbody2D.gravityScale = 0f;
+                }
+
+                // Disable any 2D ConstantForce that may be applying gravity-like forces
+                var cf2 = GetComponent<ConstantForce2D>();
+                if (cf2 != null) cf2.enabled = false;
+            }
+            else
+            {
+                // When enabling gravity handling, restore previous 2D settings if we have them
+                if (_rigidbody2D == null) _rigidbody2D = GetComponent<Rigidbody2D>();
+                if (_rigidbody2D != null && _hasStoredPrev2D)
+                {
+                    _rigidbody2D.bodyType = _prevBodyType2D;
+                    _rigidbody2D.gravityScale = _prevGravityScale2D;
+                }
+                // Re-enable ConstantForce2D if present (assume it was intended to run)
+                var cf2 = GetComponent<ConstantForce2D>();
+                if (cf2 != null) cf2.enabled = true;
+            }
         }
 
         public void SetAcceptInputEnable(bool enable)
