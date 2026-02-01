@@ -71,6 +71,10 @@ namespace Script
             bool pressed = action.ReadValue<float>() > 0.5f;
 
             // Always update the player's left-button sprite state every frame (avoid visual desync)
+            if (playerSpriteManager == null)
+            {
+                playerSpriteManager = FindAnyObjectByType<PlayerSpriteManager>();
+            }
             if (playerSpriteManager != null)
             {
                 playerSpriteManager.LeftMouseButtonDown = pressed;

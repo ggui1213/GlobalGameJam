@@ -8,7 +8,13 @@ namespace Script
         [SerializeField] private Sprite leftPressedSprite;
         [SerializeField] private Sprite rightPressedSprite;
         [SerializeField] private Sprite bothPressedSprite;
+        [SerializeField] private Sprite defualtLevelSprite;
+        [SerializeField] private Sprite leftPressedLevelSprite;
+        [SerializeField] private Sprite rightPressedLevelSprite;
+        [SerializeField] private Sprite bothPressedLevelSprite;
         [SerializeField] private bool debugLogs;
+        
+        [SerializeField] private SpriteRenderer levelSpriteRenderer;
         
         private SpriteRenderer _spriteRenderer;
         private bool _leftMouseButtonDown;
@@ -76,24 +82,32 @@ namespace Script
             {
                 if (bothPressedSprite != null)
                     _spriteRenderer.sprite = bothPressedSprite;
+                if (bothPressedLevelSprite != null)
+                    levelSpriteRenderer.sprite = bothPressedLevelSprite;
             }
             else if (_leftMouseButtonDown)
             {
                 if (leftPressedSprite != null)
                     _spriteRenderer.sprite = leftPressedSprite;
+                if (leftPressedLevelSprite != null)
+                    levelSpriteRenderer.sprite = leftPressedLevelSprite;
             }
             else if (_rightMouseButtonDown)
             {
                 if (rightPressedSprite != null)
                     _spriteRenderer.sprite = rightPressedSprite;
+                if  (rightPressedLevelSprite != null)
+                    levelSpriteRenderer.sprite = rightPressedLevelSprite;
             }
             else
             {
                 if (defualtSprite != null)
                     _spriteRenderer.sprite = defualtSprite;
+                if (defualtLevelSprite != null)
+                    levelSpriteRenderer.sprite = defualtLevelSprite;
             }
         }
-        
+
         public void ResetToDefaultSprite()
         {
             if (_spriteRenderer != null && defualtSprite != null)
