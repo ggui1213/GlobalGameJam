@@ -164,7 +164,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1, y: 1, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6141684635840917876}
@@ -468,6 +468,7 @@ MonoBehaviour:
   leftPressedSprite: {fileID: -3480642058058728229, guid: 717b7858835da2f459168dfc9f8fc077, type: 3}
   rightPressedSprite: {fileID: -2326465548647411387, guid: a7f2fd7edf9407549bf5e61839e9eb38, type: 3}
   bothPressedSprite: {fileID: -3480642058058728229, guid: 717b7858835da2f459168dfc9f8fc077, type: 3}
+  debugLogs: 0
 --- !u!114 &8842164025332559029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,7 +482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.Player
   playerGravityHandleMode: 1
-  gravityScaleWhenOn: 1
+  gravityScaleWhenOn: 3
   startWithGravityOn: 0
   stateOnPress: 1
   enableGravityHandleOnStart: 0
