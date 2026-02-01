@@ -168,6 +168,9 @@ namespace Script
                 }
                 
              }
+             
+             if (FMODAudioManager.Instance != null)
+                FMODAudioManager.Instance.OnPlayerRespawn();
 
              return target;
          }

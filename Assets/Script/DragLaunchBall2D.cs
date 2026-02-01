@@ -67,6 +67,10 @@ namespace Script
                     isDragging = true;
                     dragStartWorld = rb != null ? rb.position : (Vector2)transform.position;
                     if (line != null) line.enabled = true;
+                    
+                    // FMOD: 播放蓄力音效
+                    if (FMODAudioManager.Instance != null)
+                        FMODAudioManager.Instance.PlayEjectionCharging();
                 }
             }
 
@@ -106,12 +110,13 @@ namespace Script
             {
                 onLaunch?.Invoke();
 
-                if (rb != null)
-                {
-                    rb.AddForce(currentForce, ForceMode2D.Impulse);
-                }
-                if (line != null) line.enabled = false;
-                enabled = false;
+                // FMOD: 播放发射音效（同时 BGM 切换到全频段）
+                if (FMODAudioManager.Instance != null)
+                    FMODAudioManager.Instance.PlayEjectionReleased();
+
+                rb.AddForce(currentForce, ForceMode2D.Impulse);
+                line.enabled = false;
+                enabled = false; // ????
             }
         }
 

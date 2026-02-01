@@ -96,8 +96,21 @@ namespace Script
             if (collision.collider.CompareTag("Trap") || collision.collider.CompareTag("Wall"))
             {
                 Debug.Log($"[Player] OnCollisionEnter2D with {collision.gameObject.name}");
+                if (FMODAudioManager.Instance != null)
+                    FMODAudioManager.Instance.PlayFail();
+                    
+                MovementTrialManager.Instance.EndCurrentTrial();
+                PlayerSpawner.Instance.RespawnPlayer();
+                
                 DoRespawn(collision.collider);
             }
+        }
+        
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            // FMOD: 播放碰撞音效（碰到边框时）
+            if (FMODAudioManager.Instance != null)
+                FMODAudioManager.Instance.PlayCollisionHit();
         }
     }
 }

@@ -61,6 +61,10 @@ namespace Script
                         : VisibilityState.ObstacleVisible;
                 
                     SetVisibilityState(_currentState);
+                    
+                    // FMOD: 播放碰撞切换音效
+                    if (FMODAudioManager.Instance != null)
+                        FMODAudioManager.Instance.PlayCollisionToggle();
                 }
             }
             else // PressRelease
@@ -70,6 +74,10 @@ namespace Script
                     // Pressed
                     _currentState = stateOnPress;
                     SetVisibilityState(_currentState);
+                    
+                    // FMOD: 播放碰撞切换音效
+                    if (FMODAudioManager.Instance != null)
+                        FMODAudioManager.Instance.PlayCollisionToggle();
                 }
                 else if (!pressed && _wasPressedLastFrame)
                 {
@@ -78,6 +86,10 @@ namespace Script
                         ? VisibilityState.TrapVisible 
                         : VisibilityState.ObstacleVisible;
                     SetVisibilityState(_currentState);
+                    
+                    // FMOD: 播放碰撞切换音效
+                    if (FMODAudioManager.Instance != null)
+                        FMODAudioManager.Instance.PlayCollisionToggle();
                 }
             }
 
