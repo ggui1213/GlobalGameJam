@@ -11,19 +11,39 @@ namespace Script
 
         Rigidbody2D rb;
         LineRenderer line;
+        Camera _cachedCamera;
 
         bool isDragging = false;
         Vector2 dragStartWorld;
         Vector2 currentForce;
+
+        Camera GetCamera()
+        {
+            if (Player.Instance != null && Player.Instance.PlayerCamera != null)
+                return Player.Instance.PlayerCamera;
+
+            if (_cachedCamera != null) return _cachedCamera;
+            _cachedCamera = Camera.main;
+            return _cachedCamera;
+        }
 
         void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             line = GetComponent<LineRenderer>();
 
-            rb.linearVelocity = Vector2.zero;
-            rb.angularVelocity = 0f;
+            if (rb == null)
+            {
+                Debug.LogWarning($"{nameof(DragLaunchBall2D)} on {gameObject.name} needs a Rigidbody2D.");
+            }
+            else
+            {
+                rb.linearVelocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+            }
+
             if (line != null) line.enabled = false;
+            _cachedCamera = Camera.main;
         }
 
         void Update()
@@ -36,43 +56,47 @@ namespace Script
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                var cam = GetCamera();
+                if (cam == null) return;
+
+                Vector2 mouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
                 Collider2D hit = Physics2D.OverlapPoint(mouseWorld);
 
-                if (hit != null && hit.gameObject == gameObject)
+                if (hit != null && (hit.gameObject == gameObject || hit.transform.IsChildOf(transform)))
                 {
                     isDragging = true;
-                    dragStartWorld = rb.position;
+                    dragStartWorld = rb != null ? rb.position : (Vector2)transform.position;
                     if (line != null) line.enabled = true;
                 }
             }
 
             if (isDragging && Input.GetMouseButton(0))
             {
-                Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                var cam = GetCamera();
+                if (cam == null) return;
+
+                Vector2 mouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
                 Vector2 dragVector = dragStartWorld - mouseWorld;
 
-                // Clamp the drag vector to the configured maximum distance
                 if (maxDragDistance > 0f)
                 {
                     float mag = dragVector.magnitude;
                     if (mag > maxDragDistance)
-                    {
                         dragVector = dragVector.normalized * maxDragDistance;
-                    }
                 }
 
                 currentForce = dragVector * forceMultiplier;
 
-                line.SetPosition(0, dragStartWorld);
-                line.SetPosition(1, dragStartWorld + dragVector);
+                if (line != null)
+                {
+                    line.SetPosition(0, dragStartWorld);
+                    line.SetPosition(1, dragStartWorld + dragVector);
+                }
             }
 
             if (Input.GetMouseButtonUp(0))
             {
                 isDragging = false;
-                // keep currentForce so launch can be done with space; hide line if desired
-                // if (line != null) line.enabled = false;
             }
         }
 
@@ -80,21 +104,25 @@ namespace Script
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                // Invoke onLaunch first so external listeners (like GravityHandler) can prepare
-                // e.g. turning gravity back on (Dynamic body) so AddForce works.
-                onLaunch.Invoke();
+                onLaunch?.Invoke();
 
-                rb.AddForce(currentForce, ForceMode2D.Impulse);
-                line.enabled = false;
-                enabled = false; // ????
+                if (rb != null)
+                {
+                    rb.AddForce(currentForce, ForceMode2D.Impulse);
+                }
+                if (line != null) line.enabled = false;
+                enabled = false;
             }
         }
 
         public void ResetLauncher()
         {
             enabled = true;
-            rb.linearVelocity = Vector2.zero;
-            rb.angularVelocity = 0f;
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+            }
             isDragging = false;
             currentForce = Vector2.zero;
             if (line != null) line.enabled = false;
