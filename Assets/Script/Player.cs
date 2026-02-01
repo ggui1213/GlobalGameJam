@@ -25,6 +25,7 @@ namespace Script
         {
             if (other.tag == "Trap" || other.tag == "Wall")
             {
+                MovementTrialManager.Instance.EndCurrentTrial();
                 PlayerSpawnManager.Instance.RespawnPlayer();
             }
         }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DragLaunchBall2D : MonoBehaviour
 {
@@ -66,6 +67,10 @@ public class DragLaunchBall2D : MonoBehaviour
             rb.AddForce(currentForce, ForceMode2D.Impulse);
             line.enabled = false;
             enabled = false; // ?????
+            
+            onLaunch.Invoke();
         }
     }
+
+    public UnityEvent onLaunch;
 }
