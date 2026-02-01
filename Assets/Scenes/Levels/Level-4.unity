@@ -653,7 +653,7 @@ GameObject:
   - component: {fileID: 1139179079}
   m_Layer: 0
   m_Name: IMG_5432_0
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -762,7 +762,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -775,7 +775,7 @@ PolygonCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   m_Points:
     m_Paths:
     - - {x: 3.4414885, y: -5.9379544}
@@ -1789,6 +1789,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 840323076}
     m_Modifications:
     - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -39.08197
       objectReference: {fileID: 0}
@@ -1827,6 +1839,10 @@ PrefabInstance:
     - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3807234784359123491, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
       propertyPath: m_Sprite

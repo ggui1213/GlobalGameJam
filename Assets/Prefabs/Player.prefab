@@ -423,7 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca44adf7d9092b4d93977bd0ae7f5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DragLaunchBall2D
-  forceMultiplier: 10
+  forceMultiplier: 8
   maxDragDistance: 3
   onLaunch:
     m_PersistentCalls:
@@ -464,11 +464,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 617d22aa953848945ad41f1f72f2f683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.PlayerSpriteManager
-  defualtSprite: {fileID: 2358217137719092650, guid: dbe1ad7cd94f4a04fb57b5406095a202, type: 3}
-  leftPressedSprite: {fileID: -3480642058058728229, guid: 717b7858835da2f459168dfc9f8fc077, type: 3}
+  defualtSprite: {fileID: -3480642058058728229, guid: 717b7858835da2f459168dfc9f8fc077, type: 3}
+  leftPressedSprite: {fileID: 2358217137719092650, guid: dbe1ad7cd94f4a04fb57b5406095a202, type: 3}
   rightPressedSprite: {fileID: -2326465548647411387, guid: a7f2fd7edf9407549bf5e61839e9eb38, type: 3}
   bothPressedSprite: {fileID: -5803604153022991459, guid: de54f4d792bc3774682235ac210e5534, type: 3}
+  defualtLevelSprite: {fileID: 0}
+  leftPressedLevelSprite: {fileID: 0}
+  rightPressedLevelSprite: {fileID: 0}
+  bothPressedLevelSprite: {fileID: 0}
   debugLogs: 0
+  levelSpriteRenderer: {fileID: 0}
 --- !u!114 &8842164025332559029
 MonoBehaviour:
   m_ObjectHideFlags: 0

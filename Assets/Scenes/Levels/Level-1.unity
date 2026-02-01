@@ -297,7 +297,7 @@ PrefabInstance:
     - target: {fileID: 7437312897368444265, guid: 4ab974ec2e2f20d45b3b0e41fea86de3, type: 3}
       propertyPath: defualtLevelSprite
       value: 
-      objectReference: {fileID: 5413602386494639321, guid: 2c04a0b49ad26c446b32b751916f187f, type: 3}
+      objectReference: {fileID: -705696137447873494, guid: b25fe4175830eb64086e86cd86dc2739, type: 3}
     - target: {fileID: 7437312897368444265, guid: 4ab974ec2e2f20d45b3b0e41fea86de3, type: 3}
       propertyPath: levelSpriteRenderer
       value: 
@@ -309,7 +309,7 @@ PrefabInstance:
     - target: {fileID: 7437312897368444265, guid: 4ab974ec2e2f20d45b3b0e41fea86de3, type: 3}
       propertyPath: leftPressedLevelSprite
       value: 
-      objectReference: {fileID: -705696137447873494, guid: b25fe4175830eb64086e86cd86dc2739, type: 3}
+      objectReference: {fileID: 5413602386494639321, guid: 2c04a0b49ad26c446b32b751916f187f, type: 3}
     - target: {fileID: 7437312897368444265, guid: 4ab974ec2e2f20d45b3b0e41fea86de3, type: 3}
       propertyPath: rightPressedLevelSprite
       value: 
@@ -592,7 +592,7 @@ PolygonCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   m_Points:
     m_Paths:
     - - {x: 5.0448456, y: -4.2848}

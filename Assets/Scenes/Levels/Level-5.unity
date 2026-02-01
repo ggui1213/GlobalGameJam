@@ -128,12 +128,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.5531082
+      value: -3.24
       objectReference: {fileID: 0}
     - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10.172344
+      value: -8.39
       objectReference: {fileID: 0}
     - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -167,6 +179,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7053628065946228794, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
       propertyPath: nextLevelName
       value: Level-6
@@ -197,7 +213,7 @@ GameObject:
   - component: {fileID: 287921566}
   m_Layer: 0
   m_Name: "level5map\u9EC4_0"
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -232,7 +248,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -245,7 +261,7 @@ PolygonCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   m_Points:
     m_Paths:
     - - {x: -2.446758, y: 11.411752}

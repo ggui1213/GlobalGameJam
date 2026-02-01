@@ -128,12 +128,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.6782448
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.6782448
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.6782448
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -36.83206
+      value: -36.1152
       objectReference: {fileID: 0}
     - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.3596373
+      value: -4.2721
       objectReference: {fileID: 0}
     - target: {fileID: 2117773615167959244, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -918,7 +930,7 @@ GameObject:
   - component: {fileID: 1991383775}
   m_Layer: 0
   m_Name: "level7map\u9EC4_0"
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -953,7 +965,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -966,7 +978,7 @@ PolygonCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   m_Points:
     m_Paths:
     - - {x: -7.6154766, y: 2.9687939}
@@ -1208,7 +1220,7 @@ Transform:
   m_GameObject: {fileID: 1991383774}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.936832, y: 3.891732, z: 0}
+  m_LocalPosition: {x: -16.7, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
