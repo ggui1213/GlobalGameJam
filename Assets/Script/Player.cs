@@ -5,6 +5,10 @@ namespace Script
     public class Player : MonoBehaviour
     {
         public static Player Instance { get; private set; }
+        
+        [SerializeField] private GameObject collisionEffectPrefab;
+        [SerializeField] private float minimumCollisionEffectScale = 0.25f;
+        [SerializeField] private float maximumCollisionRelativeSpeedForMaxScale = 10f;
 
         private void Awake()
         {
@@ -107,6 +111,17 @@ namespace Script
                 PlayerSpawner.Instance.RespawnPlayer();
                 
                 DoRespawn(collision.collider);
+            }
+
+            if (collision.collider.CompareTag("Obstacle"))
+            {
+                var contactPoint = collision.GetContact(0).point;
+                var contractNormalAngle = Mathf.Atan2(collision.GetContact(0).normal.y, collision.GetContact(0).normal.x) * Mathf.Rad2Deg - 90f;
+                var relativeSpeed = collision.relativeVelocity.magnitude;
+                if (collisionEffectPrefab != null)
+                {
+                    Instantiate(collisionEffectPrefab, contactPoint, Quaternion.Euler(0f, 0f, contractNormalAngle)).transform.localScale = Vector3.one * Mathf.Lerp(minimumCollisionEffectScale, 1f, Mathf.Clamp01(relativeSpeed / maximumCollisionRelativeSpeedForMaxScale));
+                }
             }
         }
     }
