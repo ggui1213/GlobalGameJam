@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Script
 {
@@ -7,74 +8,206 @@ namespace Script
     {
         private InputSystem_Actions _inputSystemActions;
         private Rigidbody2D _rigidbody2D;
-        [SerializeField] private float gravityScale = 1;
-        [SerializeField] private PlayerGravityState initialGravityState = PlayerGravityState.GravityOn;
-        [SerializeField] private bool handlingGravityToggleOnStart = false;
-        [SerializeField] private bool allowToggleGravityOnStart = true;
-        private PlayerGravityState _currentGravityState;
-        
-        private bool _allowToggleGravity;
-        private bool _isHandlingGravityToggle;
-
+        [SerializeField] private PlayerGravityHandleMode playerGravityHandleMode;
+        [SerializeField] private float gravityScaleWhenOn = 1f;
+        [SerializeField] private bool startWithGravityOn;
+        [SerializeField] private bool pressToTurnGravityOn;
+        [SerializeField] private bool enableGravityHandleOnStart;
+        [SerializeField] private bool enableGravityHandleInputOnStart;
+        [SerializeField] private bool debugInputLogs;
+        private bool _acceptInput;
+        private bool _gravityHandleEnabled;
+        private bool _wasPressedLastFrame;
+        private PlayerGravityHandlingState _currentGravityHandlingState;
 
         private void Start()
         {
             _inputSystemActions = GameManager.Instance.InputActions;
+            // Ensure the input actions are enabled so actions produce values/events.
+            if (_inputSystemActions != null)
+            {
+                _inputSystemActions.Enable();
+            }
             _rigidbody2D = GetComponent<Rigidbody2D>();
-            
-            _currentGravityState = initialGravityState;
-            
-            
-            _allowToggleGravity = allowToggleGravityOnStart;
-            
-            _isHandlingGravityToggle = handlingGravityToggleOnStart;
-            if (_isHandlingGravityToggle)
-                BeginHandlingGravity();
+
+            // Initialize starting gravity state
+            if (startWithGravityOn)
+                SetCurrentGravityState(PlayerGravityHandlingState.GravityOn);
+            else
+                SetCurrentGravityState(PlayerGravityHandlingState.GravityOff);
+
+            if (enableGravityHandleInputOnStart)
+                SetAcceptInputEnable(true);
+            if (enableGravityHandleOnStart)
+                SetGravityHandleEnable(true);
+
+            // Initialize _wasPressedLastFrame to the current action state to avoid
+            // falsely detecting a press or release on the first frame.
+            if (_inputSystemActions != null)
+            {
+                try
+                {
+                    var action = _inputSystemActions.Player.ToggleGravity;
+                    if (action != null)
+                        _wasPressedLastFrame = action.ReadValue<float>() > 0.5f;
+                }
+                catch
+                {
+                    // ignore if action not available yet
+                }
+            }
         }
 
         private void Update()
         {
-                
-            if (_inputSystemActions.Player.ToggleGravity.triggered)
-                TryToggleGravity();
+            // The generated input wrapper exposes a struct for Player (value type),
+            // so the null-conditional operator cannot be used on .Player. Instead
+            // explicitly ensure the wrapper itself is not null, then access the
+            // action from the value-type Player wrapper.
+            // If input actions weren't available at Start (GameManager not ready),
+            // try to obtain them now (handles initialization order issues).
+            if (_inputSystemActions == null)
+            {
+                try
+                {
+                    var gm = GameManager.Instance;
+                    if (gm != null && gm.InputActions != null)
+                    {
+                        _inputSystemActions = gm.InputActions;
+                        _inputSystemActions.Enable();
+                        // Initialize _wasPressedLastFrame from the action if possible.
+                        var initAction = _inputSystemActions.Player.ToggleGravity;
+                        if (initAction != null)
+                        {
+                            _wasPressedLastFrame = initAction.ReadValue<float>() > 0.5f;
+                        }
+                    }
+                    else
+                    {
+                        // Still not available, skip this frame.
+                        return;
+                    }
+                }
+                catch
+                {
+                    return;
+                }
+            }
+
+            if (!_acceptInput)
+            {
+                if (debugInputLogs) Debug.Log($"PlayerGravityHandler: input ignored because _acceptInput is false (GameObject={gameObject.name})");
+                return;
+            }
+
+             var action = _inputSystemActions.Player.ToggleGravity;
+             if (action == null)
+             {
+                 if (debugInputLogs) Debug.Log($"PlayerGravityHandler: ToggleGravity action is null (GameObject={gameObject.name})");
+                 return;
+             }
+
+             // Only respond if gravity handling is enabled
+             if (!_gravityHandleEnabled)
+            {
+                if (debugInputLogs) Debug.Log($"PlayerGravityHandler: gravity handling disabled (_gravityHandleEnabled=false) (GameObject={gameObject.name})");
+                return;
+            }
+
+            // Read pressed state once and use it for both Toggle and PressRelease modes.
+            var pressed = action.ReadValue<float>() > 0.5f;
+
+            // Handle Toggle mode: flip state on press edge
+            if (playerGravityHandleMode == PlayerGravityHandleMode.Toggle)
+            {
+                if (pressed && !_wasPressedLastFrame)
+                {
+                    if (debugInputLogs) Debug.Log($"PlayerGravityHandler: Toggle press edge detected (GameObject={gameObject.name})");
+                    if (_currentGravityHandlingState == PlayerGravityHandlingState.GravityOn)
+                        SetCurrentGravityState(PlayerGravityHandlingState.GravityOff);
+                    else
+                        SetCurrentGravityState(PlayerGravityHandlingState.GravityOn);
+                }
+            }
+            // Handle PressRelease mode: gravity set on press, inverted on release
+            else if (playerGravityHandleMode == PlayerGravityHandleMode.PressRelease)
+            {
+                // Press started this frame
+                if (pressed && !_wasPressedLastFrame)
+                {
+                    if (debugInputLogs) Debug.Log($"PlayerGravityHandler: Press started (pressToTurnGravityOn={pressToTurnGravityOn}) (GameObject={gameObject.name})");
+                    if (pressToTurnGravityOn)
+                        SetCurrentGravityState(PlayerGravityHandlingState.GravityOn);
+                    else
+                        SetCurrentGravityState(PlayerGravityHandlingState.GravityOff);
+                }
+                // Release happened this frame
+                else if (!pressed && _wasPressedLastFrame)
+                {
+                    if (debugInputLogs) Debug.Log($"PlayerGravityHandler: Press released (pressToTurnGravityOn={pressToTurnGravityOn}) (GameObject={gameObject.name})");
+                    if (pressToTurnGravityOn)
+                        SetCurrentGravityState(PlayerGravityHandlingState.GravityOff);
+                    else
+                        SetCurrentGravityState(PlayerGravityHandlingState.GravityOn);
+                }
+            }
+
+            // Update last-frame pressed state for edge detection next frame.
+            _wasPressedLastFrame = pressed;
+         }
+
+
+        public void SetGravityHandleEnable(bool enable)
+        {
+            _gravityHandleEnabled = enable;
         }
 
+        public void SetAcceptInputEnable(bool enable)
+        {
+            _acceptInput = enable;
+        }
         
-        public void EnableToggleGravity() => _allowToggleGravity = true;
-        public void DisableToggleGravity() => _allowToggleGravity = false;
-        
-        public void BeginHandlingGravity() => BeginHandlingGravity(_currentGravityState);
-        public void BeginHandlingGravity(PlayerGravityState startingGravityStateOverride)
+        private void SetCurrentGravityState(PlayerGravityHandlingState newHandlingState)
         {
-            _isHandlingGravityToggle = true;
-            _currentGravityState = startingGravityStateOverride;
-            // Set initial gravity state
-            _rigidbody2D.gravityScale = _currentGravityState == PlayerGravityState.GravityOn ? gravityScale : 0;
+            _currentGravityHandlingState = newHandlingState;
+            switch (newHandlingState)
+            {
+                case PlayerGravityHandlingState.GravityOn:
+                    OnGravityOn();
+                    break;
+                case PlayerGravityHandlingState.GravityOff:
+                    OnGravityOff();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(newHandlingState), newHandlingState, null);
+            }
         }
 
-        public void EndHandlingGravityToggle() => EndHandlingGravityToggle(_currentGravityState);
-        public void EndHandlingGravityToggle(PlayerGravityState endingState)
+        private void OnGravityOn()
         {
-            _isHandlingGravityToggle = false;
-            _currentGravityState = endingState;
-            // Set final gravity state
-            _rigidbody2D.gravityScale = _currentGravityState == PlayerGravityState.GravityOn ? gravityScale : 0;
+            _rigidbody2D.gravityScale = gravityScaleWhenOn;
         }
 
-        public bool TryToggleGravity()
+        private void OnGravityOff()
         {
-            if (!_allowToggleGravity)
-                return false;
-            _currentGravityState = _currentGravityState == PlayerGravityState.GravityOn? PlayerGravityState.GravityOff : PlayerGravityState.GravityOn;
-            
-            if (_isHandlingGravityToggle)
-                _rigidbody2D.gravityScale = _currentGravityState == PlayerGravityState.GravityOn ? gravityScale : 0;
-            return true;
+            _rigidbody2D.gravityScale = 0f;
         }
-        public enum PlayerGravityState
+
+
+        #region Nested Types
+
+        public enum PlayerGravityHandlingState
         {
             GravityOn,
             GravityOff
         }
+        
+        public enum PlayerGravityHandleMode
+        {
+            Toggle,
+            PressRelease
+        }
+
+        #endregion
     }
 }
