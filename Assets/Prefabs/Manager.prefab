@@ -75,7 +75,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d865c2b56615674487286ba4caa50fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.ObstacleAndTrapManager
-  initialState: 0
+  initialState: 1
+  handleMode: 0
+  stateOnPress: 1
   obstacleVisibleOpacity: 1
   obstacleHidedOpacity: 0.25
   trapVisibleOpacity: 1
