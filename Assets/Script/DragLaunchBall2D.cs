@@ -80,12 +80,24 @@ namespace Script
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                // Invoke onLaunch first so external listeners (like GravityHandler) can prepare
+                // e.g. turning gravity back on (Dynamic body) so AddForce works.
+                onLaunch.Invoke();
+
                 rb.AddForce(currentForce, ForceMode2D.Impulse);
                 line.enabled = false;
                 enabled = false; // ????
-
-                onLaunch.Invoke();
             }
+        }
+
+        public void ResetLauncher()
+        {
+            enabled = true;
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            isDragging = false;
+            currentForce = Vector2.zero;
+            if (line != null) line.enabled = false;
         }
 
         public UnityEvent onLaunch;

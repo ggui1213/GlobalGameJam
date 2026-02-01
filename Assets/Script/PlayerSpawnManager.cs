@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Script
 {
@@ -29,45 +28,44 @@ namespace Script
         
         public GameObject RespawnPlayer()
         {
-            if (_player != null)
+            // 1. Check if player exists, if not create one
+            if (_player == null)
             {
-                if (spawnPoint != null)
-                {
-                    _player.transform.position = spawnPoint.position;
-                    _player.transform.rotation = spawnPoint.rotation;
-                    // reset physics velocities if present
-                    var rb2d = _player.GetComponent<Rigidbody2D>();
-                    if (rb2d != null)
-                    {
-                        rb2d.linearVelocity = Vector2.zero;
-                        rb2d.angularVelocity = 0f;
-                    }
-                    var rb = _player.GetComponent<Rigidbody>();
-                    if (rb != null)
-                    {
-                        rb.linearVelocity = Vector3.zero;
-                        rb.angularVelocity = Vector3.zero;
-                    }
-                }
-
-                _player.GetComponent<DragLaunchBall2D>().enabled = true;
-                _player.GetComponent<PlayerGravityHandler>().SetGravityHandleEnable(false);
-                _player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-                
-                return _player;
-            }
-             
-            if (playerPrefab == null) return null;
-            if (spawnPoint == null) return null;
-
-            _player = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
-            if (_player != null)
-            {
-                // Ensure the spawned object is active and identifiable in hierarchy
-                _player.SetActive(true);
+                if (playerPrefab == null) return null;
+                _player = Instantiate(playerPrefab);
                 _player.name = playerPrefab.name;
-                // Optionally ensure it has Player tag if such convention exists
-                // if (!string.IsNullOrEmpty("Player") && _player.tag != "Player") _player.tag = "Player";
+            }
+
+            _player.SetActive(true);
+
+            // 2. Move to respawn point
+            if (spawnPoint != null)
+            {
+                _player.transform.position = spawnPoint.position;
+                _player.transform.rotation = spawnPoint.rotation;
+            }
+
+            // 3. Stop handling gravity
+            var gravityHandler = _player.GetComponent<PlayerGravityHandler>();
+            if (gravityHandler != null)
+            {
+                gravityHandler.SetGravityHandleEnable(false);
+            }
+
+            // 4. Reset RB2D velocities and gravity scale
+            var rb2d = _player.GetComponent<Rigidbody2D>();
+            if (rb2d != null)
+            {
+                rb2d.linearVelocity = Vector2.zero;
+                rb2d.angularVelocity = 0f;
+                rb2d.gravityScale = 0f;
+            }
+
+            // 5. Reset launcher state (clears force, enables input)
+            var launcher = _player.GetComponent<DragLaunchBall2D>();
+            if (launcher != null)
+            {
+                launcher.ResetLauncher();
             }
             
             return _player;
