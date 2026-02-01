@@ -33,9 +33,19 @@ namespace Script
 
         private void Start()
         {
-            if (arrowIndicatorPrefab == null || playerUICanvas == null)
+            if (playerUICanvas == null)
             {
-                Debug.LogWarning($"LevelEndPoint: missing arrowIndicatorPrefab or playerUICanvas on {gameObject.name}; indicator will be disabled.");
+                // Create a temporary canvas if none assigned
+                var canvasGo = new GameObject("IndicatorCanvas");
+                playerUICanvas = canvasGo.AddComponent<Canvas>();
+                playerUICanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+                canvasGo.AddComponent<CanvasScaler>();
+                canvasGo.AddComponent<GraphicRaycaster>();
+            }
+
+            if (arrowIndicatorPrefab == null)
+            {
+                Debug.LogWarning($"LevelEndPoint: missing arrowIndicatorPrefab on {gameObject.name}; indicator will be disabled.");
                 enabled = false;
                 return;
             }
@@ -132,6 +142,13 @@ namespace Script
 
                 // ===== 4. 可选：旋转指向目标 =====
                 Vector2 dirToTarget = sp - indicatorPos;
+                
+                // Fix: if indicator is at the target position (screen inside), point away from center
+                if (dirToTarget.sqrMagnitude < 0.01f)
+                {
+                    dirToTarget = normalized - indicatorRectCenterNormalized;
+                }
+
                 float angle = Mathf.Atan2(dirToTarget.y, dirToTarget.x) * Mathf.Rad2Deg;
                 _arrowIndicatorImage.rectTransform.rotation = Quaternion.Euler(0, 0, angle - 90f);
             }
