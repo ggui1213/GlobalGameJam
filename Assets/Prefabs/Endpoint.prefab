@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2117773615167959244}
   - component: {fileID: 3807234784359123491}
   - component: {fileID: 7053628065946228794}
-  - component: {fileID: 7543554950233258069}
+  - component: {fileID: 2582105892109331101}
   m_Layer: 0
   m_Name: Endpoint
   m_TagString: Untagged
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 041a246765cd4d87803ce8c7d16278c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.LevelEndPoint
-  nextLevelName: Level-2
+  nextLevelName: Level-3
   arrowIndicatorPrefab: {fileID: 5048295385837101908, guid: 44893efb6488de9459799fcf8e252806, type: 3}
   indicatorVanishScreenBound:
     serializedVersion: 2
@@ -118,10 +118,10 @@ MonoBehaviour:
   innerRectSizeNormalized: {x: 1.2, y: 1.2}
   outerRectSizeNormalized: {x: 1.8, y: 1.8}
   sizeInfluence: 1
-  minIndicatorSize: 100
-  maxIndicatorSize: 200
---- !u!60 &7543554950233258069
-PolygonCollider2D:
+  minIndicatorSize: 25
+  maxIndicatorSize: 75
+--- !u!58 &2582105892109331101
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -150,47 +150,9 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.66, y: 1.62}
-    newSize: {x: 1.66, y: 1.62}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.7037527, y: -0.3050075}
-      - {x: 0.65629226, y: -0.37387073}
-      - {x: 0.40530396, y: -0.3617742}
-      - {x: 0.4324541, y: -0.83256626}
-      - {x: 0.25263023, y: -0.8622618}
-      - {x: 0.06449032, y: -0.54674864}
-      - {x: -0.037758827, y: -0.61471534}
-      - {x: -0.1419239, y: -0.47865844}
-      - {x: -0.35138512, y: -0.5867803}
-      - {x: -0.53882504, y: -0.54295325}
-      - {x: -0.42984295, y: -0.23676062}
-      - {x: -0.8971901, y: -0.08555865}
-      - {x: -0.87996864, y: -0.020689726}
-      - {x: -0.41323757, y: 0.08920121}
-      - {x: -0.4657116, y: 0.5069468}
-      - {x: -0.17481518, y: 0.46446395}
-      - {x: -0.11170578, y: 0.85801804}
-      - {x: 0.07698822, y: 0.864228}
-      - {x: 0.1804018, y: 0.45511842}
-      - {x: 0.35215378, y: 0.61119294}
-      - {x: 0.49161625, y: 0.5260556}
-      - {x: 0.44543648, y: 0.282691}
-      - {x: 0.7469692, y: 0.42912936}
-      - {x: 0.793561, y: 0.33895445}
-      - {x: 0.5607872, y: 0.08250332}
-      - {x: 0.6690254, y: -0.035244703}
-      - {x: 0.54607546, y: -0.119846895}
-  m_UseDelaunayMesh: 1
+  m_Offset: {x: 0.00000047683716, y: -0.0000009536743}
+  m_Radius: 1.1
