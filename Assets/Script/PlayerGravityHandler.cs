@@ -128,23 +128,20 @@ namespace Script
                         SetCurrentGravityState(PlayerGravityHandlingState.GravityOn);
                 }
             }
-            // Handle PressRelease mode: gravity set on press, inverted on release
+            // Handle PressRelease mode: gravity set on press, inverted on release (Continuous)
             else if (playerGravityHandleMode == PlayerGravityHandleMode.PressRelease)
             {
-                // Press started this frame
-                if (pressed && !_wasPressedLastFrame)
-                {
-                    if (debugInputLogs) Debug.Log($"PlayerGravityHandler: Press started (stateOnPress={stateOnPress}) (GameObject={gameObject.name})");
-                    SetCurrentGravityState(stateOnPress);
-                }
-                // Release happened this frame
-                else if (!pressed && _wasPressedLastFrame)
-                {
-                    if (debugInputLogs) Debug.Log($"PlayerGravityHandler: Press released (stateOnPress={stateOnPress}) (GameObject={gameObject.name})");
-                    // Invert state
-                    SetCurrentGravityState(stateOnPress == PlayerGravityHandlingState.GravityOn 
+                var targetState = pressed 
+                    ? stateOnPress 
+                    : (stateOnPress == PlayerGravityHandlingState.GravityOn 
                         ? PlayerGravityHandlingState.GravityOff 
                         : PlayerGravityHandlingState.GravityOn);
+                
+                // Only apply if state changed (or to ensure consistency)
+                if (_currentGravityHandlingState != targetState)
+                {
+                    if (debugInputLogs) Debug.Log($"PlayerGravityHandler: PressRelease state update (pressed={pressed}, target={targetState})");
+                    SetCurrentGravityState(targetState);
                 }
             }
 
