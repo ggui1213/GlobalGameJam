@@ -467,7 +467,7 @@ MonoBehaviour:
   defualtSprite: {fileID: 2358217137719092650, guid: dbe1ad7cd94f4a04fb57b5406095a202, type: 3}
   leftPressedSprite: {fileID: -3480642058058728229, guid: 717b7858835da2f459168dfc9f8fc077, type: 3}
   rightPressedSprite: {fileID: -2326465548647411387, guid: a7f2fd7edf9407549bf5e61839e9eb38, type: 3}
-  bothPressedSprite: {fileID: -3480642058058728229, guid: 717b7858835da2f459168dfc9f8fc077, type: 3}
+  bothPressedSprite: {fileID: -5803604153022991459, guid: de54f4d792bc3774682235ac210e5534, type: 3}
   debugLogs: 0
 --- !u!114 &8842164025332559029
 MonoBehaviour:
