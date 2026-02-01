@@ -72,7 +72,7 @@ namespace Script
             {
                 isDragging = false;
                 // keep currentForce so launch can be done with space; hide line if desired
-                if (line != null) line.enabled = false;
+                // if (line != null) line.enabled = false;
             }
         }
 
