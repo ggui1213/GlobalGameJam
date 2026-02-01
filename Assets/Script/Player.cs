@@ -92,7 +92,11 @@ namespace Script
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            // handle non-trigger collisions as well (some walls/traps might be non-trigger colliders)
+            // FMOD: Play collision hit sound on any collision
+            if (FMODAudioManager.Instance != null)
+                FMODAudioManager.Instance.PlayCollisionHit();
+
+            // Handle trap/wall collisions with respawn logic
             if (collision.collider.CompareTag("Trap") || collision.collider.CompareTag("Wall"))
             {
                 Debug.Log($"[Player] OnCollisionEnter2D with {collision.gameObject.name}");
@@ -104,13 +108,6 @@ namespace Script
                 
                 DoRespawn(collision.collider);
             }
-        }
-        
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            // FMOD: 播放碰撞音效（碰到边框时）
-            if (FMODAudioManager.Instance != null)
-                FMODAudioManager.Instance.PlayCollisionHit();
         }
     }
 }

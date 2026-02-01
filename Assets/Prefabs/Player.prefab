@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6141684635840917876}
   - component: {fileID: 5569746561180413502}
   - component: {fileID: 30676327995590808}
-  - component: {fileID: -8070023538824237560}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -129,20 +128,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &-8070023538824237560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6894572912812195764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioListener
-  nonRigidbodyVelocity: 0
-  attenuationObject: {fileID: 0}
 --- !u!1 &8406136175486059474
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,6 +145,7 @@ GameObject:
   - component: {fileID: 8842164025332559029}
   - component: {fileID: 5643792682173513610}
   - component: {fileID: -3779500482173534811}
+  - component: {fileID: 8915540691577722910}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -509,3 +495,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51d44bec1f38486c9acb219d7984b458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.PlayerTrailer
+--- !u!114 &8915540691577722910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406136175486059474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioListener
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
