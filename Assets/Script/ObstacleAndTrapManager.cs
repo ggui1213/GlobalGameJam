@@ -10,12 +10,15 @@ namespace Script
         private List<ObstacleOrTrapInfo> _traps = new();
         
         [SerializeField] private VisibilityState initialState = VisibilityState.ObstacleVisible;
+        [SerializeField] private ObstacleHandleMode handleMode = ObstacleHandleMode.Toggle;
+        [SerializeField] private VisibilityState stateOnPress = VisibilityState.TrapVisible;
         [SerializeField] private float obstacleVisibleOpacity = 1f;
         [SerializeField] private float obstacleHidedOpacity = 0.25f;
         [SerializeField] private float trapVisibleOpacity = 1f;
         [SerializeField] private float trapHidedOpacity = 0.25f;
         
         private VisibilityState _currentState;
+        private bool _wasPressedLastFrame;
         
         void Start()
         {
@@ -29,6 +32,13 @@ namespace Script
             foreach (var trapObject in trapObjects)
                 _traps.Add(new ObstacleOrTrapInfo(trapObject,trapObject.GetComponent<SpriteRenderer>(), trapObject.GetComponent<Collider2D>()));
             
+            if (_actions != null)
+            {
+                var action = _actions.Player.ToggleObstacle;
+                if (action != null)
+                    _wasPressedLastFrame = action.ReadValue<float>() > 0.5f;
+            }
+
             _currentState = initialState;
             SetVisibilityState(_currentState);
         }
@@ -36,14 +46,42 @@ namespace Script
         // Update is called once per frame
         void Update()
         {
-            if (_actions.Player.ToggleObstacle.triggered)
+            if (_actions == null) return;
+            var action = _actions.Player.ToggleObstacle;
+            if (action == null) return;
+
+            bool pressed = action.ReadValue<float>() > 0.5f;
+
+            if (handleMode == ObstacleHandleMode.Toggle)
             {
-                _currentState = _currentState == VisibilityState.ObstacleVisible
-                    ? VisibilityState.TrapVisible
-                    : VisibilityState.ObstacleVisible;
+                if (pressed && !_wasPressedLastFrame)
+                {
+                    _currentState = _currentState == VisibilityState.ObstacleVisible
+                        ? VisibilityState.TrapVisible
+                        : VisibilityState.ObstacleVisible;
                 
-                SetVisibilityState(_currentState);
+                    SetVisibilityState(_currentState);
+                }
             }
+            else // PressRelease
+            {
+                if (pressed && !_wasPressedLastFrame)
+                {
+                    // Pressed
+                    _currentState = stateOnPress;
+                    SetVisibilityState(_currentState);
+                }
+                else if (!pressed && _wasPressedLastFrame)
+                {
+                    // Released
+                    _currentState = stateOnPress == VisibilityState.ObstacleVisible 
+                        ? VisibilityState.TrapVisible 
+                        : VisibilityState.ObstacleVisible;
+                    SetVisibilityState(_currentState);
+                }
+            }
+
+            _wasPressedLastFrame = pressed;
         }
         
         private void SetVisibilityState(VisibilityState state)
@@ -110,6 +148,12 @@ namespace Script
         {
             ObstacleVisible,
             TrapVisible
+        }
+
+        public enum ObstacleHandleMode
+        {
+            Toggle,
+            PressRelease
         }
     }
 }

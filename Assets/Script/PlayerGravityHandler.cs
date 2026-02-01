@@ -10,7 +10,7 @@ namespace Script
         [SerializeField] private PlayerGravityHandleMode playerGravityHandleMode;
         [SerializeField] private float gravityScaleWhenOn = 1f;
         [SerializeField] private bool startWithGravityOn;
-        [SerializeField] private bool pressToTurnGravityOn;
+        [SerializeField] private PlayerGravityHandlingState stateOnPress = PlayerGravityHandlingState.GravityOn;
         [SerializeField] private bool enableGravityHandleOnStart;
         [SerializeField] private bool enableGravityHandleInputOnStart;
         [SerializeField] private bool debugInputLogs;
@@ -134,20 +134,17 @@ namespace Script
                 // Press started this frame
                 if (pressed && !_wasPressedLastFrame)
                 {
-                    if (debugInputLogs) Debug.Log($"PlayerGravityHandler: Press started (pressToTurnGravityOn={pressToTurnGravityOn}) (GameObject={gameObject.name})");
-                    if (pressToTurnGravityOn)
-                        SetCurrentGravityState(PlayerGravityHandlingState.GravityOn);
-                    else
-                        SetCurrentGravityState(PlayerGravityHandlingState.GravityOff);
+                    if (debugInputLogs) Debug.Log($"PlayerGravityHandler: Press started (stateOnPress={stateOnPress}) (GameObject={gameObject.name})");
+                    SetCurrentGravityState(stateOnPress);
                 }
                 // Release happened this frame
                 else if (!pressed && _wasPressedLastFrame)
                 {
-                    if (debugInputLogs) Debug.Log($"PlayerGravityHandler: Press released (pressToTurnGravityOn={pressToTurnGravityOn}) (GameObject={gameObject.name})");
-                    if (pressToTurnGravityOn)
-                        SetCurrentGravityState(PlayerGravityHandlingState.GravityOff);
-                    else
-                        SetCurrentGravityState(PlayerGravityHandlingState.GravityOn);
+                    if (debugInputLogs) Debug.Log($"PlayerGravityHandler: Press released (stateOnPress={stateOnPress}) (GameObject={gameObject.name})");
+                    // Invert state
+                    SetCurrentGravityState(stateOnPress == PlayerGravityHandlingState.GravityOn 
+                        ? PlayerGravityHandlingState.GravityOff 
+                        : PlayerGravityHandlingState.GravityOn);
                 }
             }
 

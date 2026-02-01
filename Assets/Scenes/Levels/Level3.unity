@@ -1022,6 +1022,10 @@ PrefabInstance:
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 389715951}
+    - target: {fileID: 7258307716600905410, guid: a1deb8e3716fe5b4ea23d5af99f8c220, type: 3}
+      propertyPath: handleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8975525034048094806, guid: a1deb8e3716fe5b4ea23d5af99f8c220, type: 3}
       propertyPath: m_Name
       value: Manager

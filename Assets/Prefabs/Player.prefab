@@ -474,7 +474,7 @@ MonoBehaviour:
   playerGravityHandleMode: 1
   gravityScaleWhenOn: 1
   startWithGravityOn: 0
-  pressToTurnGravityOn: 1
+  stateOnPress: 1
   enableGravityHandleOnStart: 0
   enableGravityHandleInputOnStart: 1
   debugInputLogs: 0
