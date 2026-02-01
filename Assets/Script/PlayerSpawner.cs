@@ -2,9 +2,9 @@
 
 namespace Script
 {
-    public class PlayerSpawnManager : MonoBehaviour
+    public class PlayerSpawner : MonoBehaviour
     {
-        public static PlayerSpawnManager Instance { get; private set; }
+        public static PlayerSpawner Instance { get; private set; }
         [SerializeField] GameObject playerPrefab;
         [SerializeField] Transform spawnPoint;
         private GameObject _player;
@@ -66,6 +66,12 @@ namespace Script
             if (launcher != null)
             {
                 launcher.ResetLauncher();
+            }
+            
+            var trailer = _player.GetComponent<PlayerTrailer>();
+            if (trailer != null)
+            {
+                trailer.StopTrailing();
             }
             
             return _player;

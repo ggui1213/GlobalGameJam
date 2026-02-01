@@ -1147,7 +1147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7053628065946228794, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
       propertyPath: nextLevelName
-      value: Level 4
+      value: Level4
       objectReference: {fileID: 0}
     - target: {fileID: 7053628065946228794, guid: 94b749aca5c18c6459628371b8da11e1, type: 3}
       propertyPath: playerUICanvas

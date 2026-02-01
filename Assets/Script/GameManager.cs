@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Script
 {
@@ -22,7 +23,10 @@ namespace Script
             _actions = new InputSystem_Actions();
             _actions.Enable();
         }
-        
-        
+
+        private void OnDestroy()
+        {
+            _actions.Disable();
+        }
     }
 }

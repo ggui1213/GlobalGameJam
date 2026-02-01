@@ -63,7 +63,15 @@ namespace Script
             Camera cam = Player.Instance.PlayerCamera;
 
             // Use Vector3 to check if target is behind the camera (z < 0)
-            Vector3 sp3 = cam.WorldToScreenPoint(transform.position);
+            Vector3 sp3;
+            try
+            {
+                sp3 = cam.WorldToScreenPoint(transform.position);
+            }
+            catch
+            {
+                return;
+            }
             Vector2 sp;
             if (sp3.z < 0f)
             {
