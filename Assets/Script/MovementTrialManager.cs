@@ -88,6 +88,31 @@ namespace Script
             newTrail.positionCount = 0;
             newTrail.material = new Material(Shader.Find("Sprites/Default"));
             newTrail.widthMultiplier = 0.05f;
+
+            // Place the trail behind the player's sprite so it doesn't visually block the player.
+            // Try to find the Player instance and its SpriteRenderer; if found, copy the sorting layer
+            // and set sortingOrder to one less than the player's so the trail renders behind.
+            var player = Player.Instance;
+            if (player != null)
+            {
+                var playerSprite = player.GetComponentInChildren<SpriteRenderer>();
+                if (playerSprite != null)
+                {
+                    // LineRenderer inherits Renderer so these properties are available
+                    newTrail.sortingLayerID = playerSprite.sortingLayerID;
+                    // Put trail one order behind player. If player sortingOrder is int.MinValue this may underflow,
+                    // but typical values are safe. Clamp to int.MinValue if necessary.
+                    try
+                    {
+                        newTrail.sortingOrder = playerSprite.sortingOrder - 1;
+                    }
+                    catch
+                    {
+                        newTrail.sortingOrder = playerSprite.sortingOrder; // fallback
+                    }
+                }
+            }
+
             // initialize with default gradient, will be overwritten below
             var startColor = Color.gray;
             startColor.a = trailMaxOpacity;

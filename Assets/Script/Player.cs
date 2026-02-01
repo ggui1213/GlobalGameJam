@@ -14,7 +14,7 @@ namespace Script
         {
             if (Instance != null && Instance != this)
             {
-                Destroy(this.gameObject);
+                Destroy(Instance.gameObject);
             }
             else
             {
@@ -111,6 +111,7 @@ namespace Script
                 PlayerSpawner.Instance.RespawnPlayer();
                 
                 DoRespawn(collision.collider);
+                GetComponent<PlayerSpriteManager>().ResetToDefaultSprite();
             }
 
             if (collision.collider.CompareTag("Obstacle"))

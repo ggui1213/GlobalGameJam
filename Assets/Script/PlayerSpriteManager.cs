@@ -93,5 +93,14 @@ namespace Script
                     _spriteRenderer.sprite = defualtSprite;
             }
         }
+        
+        public void ResetToDefaultSprite()
+        {
+            if (_spriteRenderer != null && defualtSprite != null)
+            {
+                _spriteRenderer.sprite = defualtSprite;
+                if (debugLogs) Debug.Log("[PlayerSpriteManager] Reset to default sprite.");
+            }
+        }
     }
 }
