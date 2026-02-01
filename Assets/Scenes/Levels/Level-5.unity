@@ -778,17 +778,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 331401340}
     m_Modifications:
+    - target: {fileID: 3734520264581828137, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
+      propertyPath: m_Size.x
+      value: 5.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7900678344061788980, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
       propertyPath: m_Name
       value: Obstacle (2)
       objectReference: {fileID: 0}
     - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5.5398855
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.33672538
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
       propertyPath: m_LocalPosition.x
@@ -830,6 +838,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -848,13 +860,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 331401340}
     m_Modifications:
+    - target: {fileID: 3734520264581828137, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
+      propertyPath: m_Size.x
+      value: 6.88
+      objectReference: {fileID: 0}
     - target: {fileID: 7900678344061788980, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
       propertyPath: m_Name
       value: Obstacle (1)
       objectReference: {fileID: 0}
     - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5.539886
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
       propertyPath: m_LocalPosition.x
@@ -894,6 +918,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1190,13 +1218,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 331401340}
     m_Modifications:
+    - target: {fileID: 3734520264581828137, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
+      propertyPath: m_Size.x
+      value: 5.29
+      objectReference: {fileID: 0}
     - target: {fileID: 7900678344061788980, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
       propertyPath: m_Name
       value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5.539886
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1237,6 +1277,10 @@ PrefabInstance:
     - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8178148320979768427, guid: f7665c9c22801be469ce69e2a2d30a68, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
