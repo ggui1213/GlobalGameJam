@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{56f668ba-b4fc-4a55-8709-7e8a06a2f125}">
+		<property name="name">
+			<value>Ejection</value>
+		</property>
+		<relationship name="folder">
+			<destination>{4c7bbb11-81b7-4892-9f51-02c41af40514}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{5dd6b9d7-aa26-47e8-8bf6-d5bd75f44b60}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{5dd6b9d7-aa26-47e8-8bf6-d5bd75f44b60}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>3</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>NA</value>
+			<value>isCharging</value>
+			<value>isReleased</value>
+		</property>
+		<property name="initialValue">
+			<value>1</value>
+		</property>
+	</object>
+</objects>
