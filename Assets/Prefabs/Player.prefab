@@ -496,6 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb174c60936b4462b5313f8ce4d81267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.Player
+  collisionEffectPrefab: {fileID: 8187929423262167487, guid: 24f9c6823b5108f4790a93d2b2a8a2d7, type: 3}
   playerCamera: {fileID: 5569746561180413502}
 --- !u!114 &-3779500482173534811
 MonoBehaviour:

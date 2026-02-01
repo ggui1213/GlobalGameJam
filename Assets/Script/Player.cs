@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using Unity.Mathematics;
+using UnityEngine;
 
 namespace Script
 {
     public class Player : MonoBehaviour
     {
         public static Player Instance { get; private set; }
+        
+        [SerializeField] private GameObject collisionEffectPrefab;
 
         private void Awake()
         {
@@ -92,6 +95,8 @@ namespace Script
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            if (FMODAudioManager.Instance != null)
+                FMODAudioManager.Instance.PlayCollisionHit();
             // handle non-trigger collisions as well (some walls/traps might be non-trigger colliders)
             if (collision.collider.CompareTag("Trap") || collision.collider.CompareTag("Wall"))
             {
@@ -104,13 +109,12 @@ namespace Script
                 
                 DoRespawn(collision.collider);
             }
-        }
-        
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            // FMOD: 播放碰撞音效（碰到边框时）
-            if (FMODAudioManager.Instance != null)
-                FMODAudioManager.Instance.PlayCollisionHit();
+
+            if (collision.collider.CompareTag("Obstacle"))
+            {
+                var normal = collision.contacts[0].normal;
+                Instantiate(collisionEffectPrefab, collision.contacts[0].point, quaternion.Euler(0,0,Mathf.Atan2(normal.x, normal.y) * Mathf.Rad2Deg));
+            }
         }
     }
 }

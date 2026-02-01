@@ -70,7 +70,7 @@ MonoBehaviour:
   Path: Masking GameJam/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639054985167308752
+  lastModified: 639055113309055728
   FileSizes:
   - Name: Desktop
     Value: 1038
@@ -126,7 +126,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -3197595634940229937}
   cacheVersion: 131849
-  cacheTime: 639054985167308752
+  cacheTime: 639055113309055728
   SerializableEventsDict:
   - key: event:/BGM
     index: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
   Path: Masking GameJam/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639054985167308752
+  lastModified: 639055113309044186
   FileSizes:
   - Name: Desktop
     Value: 3662304
