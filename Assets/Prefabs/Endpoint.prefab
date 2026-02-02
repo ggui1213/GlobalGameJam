@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2117773615167959244}
   - component: {fileID: 3807234784359123491}
   - component: {fileID: 7053628065946228794}
-  - component: {fileID: 3764847671862662196}
+  - component: {fileID: 2582105892109331101}
   m_Layer: 0
   m_Name: Endpoint
   m_TagString: Untagged
@@ -83,12 +83,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -712631045867808456, guid: b670ab75dde984907b8570040daa08c5, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: -7797656510276869524, guid: d3daf309201db7d4bb69e4515a2b3bd7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 0.8828125}
+  m_Size: {x: 1.66, y: 1.62}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 041a246765cd4d87803ce8c7d16278c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.LevelEndPoint
-  nextLevelName: 
+  nextLevelName: Level-3
   arrowIndicatorPrefab: {fileID: 5048295385837101908, guid: 44893efb6488de9459799fcf8e252806, type: 3}
   indicatorVanishScreenBound:
     serializedVersion: 2
@@ -118,10 +118,10 @@ MonoBehaviour:
   innerRectSizeNormalized: {x: 1.2, y: 1.2}
   outerRectSizeNormalized: {x: 1.8, y: 1.8}
   sizeInfluence: 1
-  minIndicatorSize: 100
-  maxIndicatorSize: 200
---- !u!60 &3764847671862662196
-PolygonCollider2D:
+  minIndicatorSize: 25
+  maxIndicatorSize: 75
+--- !u!58 &2582105892109331101
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -154,22 +154,5 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.8828125}
-    newSize: {x: 1, y: 0.8828125}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.25, y: 0.43359375}
-      - {x: -0.5, y: 0}
-      - {x: -0.25, y: -0.43359375}
-      - {x: 0.25, y: -0.43359375}
-      - {x: 0.5, y: 0}
-      - {x: 0.25, y: 0.43359375}
-  m_UseDelaunayMesh: 1
+  m_Offset: {x: 0.00000047683716, y: -0.0000009536743}
+  m_Radius: 1.1

@@ -17,6 +17,8 @@ namespace Script
         [SerializeField] private float trapVisibleOpacity = 1f;
         [SerializeField] private float trapHidedOpacity = 0.25f;
         
+        [SerializeField] private PlayerSpriteManager playerSpriteManager;
+        
         private VisibilityState _currentState;
         private bool _wasPressedLastFrame;
         
@@ -26,17 +28,33 @@ namespace Script
             
             var obstacleObjects = GameObject.FindGameObjectsWithTag("Obstacle");
             foreach (var obstacleObject in obstacleObjects)
-                _obstacles.Add(new ObstacleOrTrapInfo(obstacleObject,obstacleObject.GetComponent<SpriteRenderer>(), obstacleObject.GetComponent<Collider2D>()));
+                _obstacles.Add(new ObstacleOrTrapInfo(obstacleObject.GetComponent<SpriteRenderer>(), obstacleObject.GetComponent<Collider2D>()));
             
             var trapObjects = GameObject.FindGameObjectsWithTag("Trap");
             foreach (var trapObject in trapObjects)
-                _traps.Add(new ObstacleOrTrapInfo(trapObject,trapObject.GetComponent<SpriteRenderer>(), trapObject.GetComponent<Collider2D>()));
+                _traps.Add(new ObstacleOrTrapInfo(trapObject.GetComponent<SpriteRenderer>(), trapObject.GetComponent<Collider2D>()));
             
             if (_actions != null)
             {
                 var action = _actions.Player.ToggleObstacle;
                 if (action != null)
                     _wasPressedLastFrame = action.ReadValue<float>() > 0.5f;
+            }
+
+            // If not assigned in Inspector, attempt to auto-find a PlayerSpriteManager in the scene
+            if (playerSpriteManager == null)
+            {
+                playerSpriteManager = GetComponent<PlayerSpriteManager>();
+                if (playerSpriteManager == null)
+                    playerSpriteManager = GetComponentInChildren<PlayerSpriteManager>();
+                if (playerSpriteManager == null)
+                    playerSpriteManager = UnityEngine.Object.FindFirstObjectByType<PlayerSpriteManager>();
+            }
+
+            // Initialize player sprite manager's left-button state so sprite is correct at start
+            if (playerSpriteManager != null)
+            {
+                playerSpriteManager.LeftMouseButtonDown = _wasPressedLastFrame;
             }
 
             _currentState = initialState;
@@ -52,6 +70,16 @@ namespace Script
 
             bool pressed = action.ReadValue<float>() > 0.5f;
 
+            // Always update the player's left-button sprite state every frame (avoid visual desync)
+            if (playerSpriteManager == null)
+            {
+                playerSpriteManager = FindAnyObjectByType<PlayerSpriteManager>();
+            }
+            if (playerSpriteManager != null)
+            {
+                playerSpriteManager.LeftMouseButtonDown = pressed;
+            }
+
             if (handleMode == ObstacleHandleMode.Toggle)
             {
                 if (pressed && !_wasPressedLastFrame)
@@ -62,7 +90,7 @@ namespace Script
                 
                     SetVisibilityState(_currentState);
                     
-                    // FMOD: 播放碰撞切换音效
+                    // FMOD: 播放碰撞切換音效
                     if (FMODAudioManager.Instance != null)
                         FMODAudioManager.Instance.PlayCollisionToggle();
                 }
@@ -75,7 +103,7 @@ namespace Script
                     _currentState = stateOnPress;
                     SetVisibilityState(_currentState);
                     
-                    // FMOD: 播放碰撞切换音效
+                    // FMOD: 播放碰撞切換音效
                     if (FMODAudioManager.Instance != null)
                         FMODAudioManager.Instance.PlayCollisionToggle();
                 }
@@ -87,7 +115,7 @@ namespace Script
                         : VisibilityState.ObstacleVisible;
                     SetVisibilityState(_currentState);
                     
-                    // FMOD: 播放碰撞切换音效
+                    // FMOD: 播放碰撞切換音效
                     if (FMODAudioManager.Instance != null)
                         FMODAudioManager.Instance.PlayCollisionToggle();
                 }
@@ -144,15 +172,13 @@ namespace Script
         
         private struct ObstacleOrTrapInfo
         {
-            public readonly GameObject GameObject;
             public readonly SpriteRenderer SpriteRenderer;
             public readonly Collider2D Collider;
 
-            public ObstacleOrTrapInfo(GameObject obstacleObject, SpriteRenderer getComponent, Collider2D getComponent1)
+            public ObstacleOrTrapInfo(SpriteRenderer spriteRenderer, Collider2D collider)
             {
-                GameObject = obstacleObject;
-                SpriteRenderer = getComponent;
-                Collider = getComponent1;
+                SpriteRenderer = spriteRenderer;
+                Collider = collider;
             }
         }
         

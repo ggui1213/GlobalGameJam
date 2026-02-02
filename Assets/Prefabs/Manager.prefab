@@ -75,13 +75,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d865c2b56615674487286ba4caa50fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.ObstacleAndTrapManager
-  initialState: 1
-  handleMode: 0
+  initialState: 0
+  handleMode: 1
   stateOnPress: 1
   obstacleVisibleOpacity: 1
   obstacleHidedOpacity: 0.25
   trapVisibleOpacity: 1
   trapHidedOpacity: 0.25
+  playerSpriteManager: {fileID: 0}
 --- !u!114 &3494839021397942941
 MonoBehaviour:
   m_ObjectHideFlags: 0
